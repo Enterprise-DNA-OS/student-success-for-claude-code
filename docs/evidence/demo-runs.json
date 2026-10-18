@@ -1,0 +1,23 @@
+{
+  "captured_at": "2026-10-18T02:15:43.981Z",
+  "screens": [
+    {
+      "title": "Adviser caseload",
+      "ask": "Who needs contact and who is responsible?",
+      "command": "npm run students -- caseload",
+      "output": "source id  name           programme           adviser     last contact  open alerts  active plans  pending referrals\n  ---------  -------------  ------------------  ----------  ------------  -----------  ------------  -----------------\n  LRN-10     Aroha Mason    Business Diploma    Morgan Lee  2026-09-23    1            1             1                \n  LRN-12     Jordan Reed    Design Certificate  Morgan Lee  2026-09-28    0            0             0                \n  LRN-11     Jordan Rivers  Business Diploma    Morgan Lee  2026-10-16    1            1             1                \n  LRN-13     Mika Chen      Design Certificate  Unassigned                1            0             1"
+    },
+    {
+      "title": "Follow-up desk",
+      "ask": "Which agreed actions are due or overdue?",
+      "command": "npm run students -- follow-ups",
+      "output": "source id  learner        action                     owner       due on      days overdue\n  ---------  -------------  -------------------------  ----------  ----------  ------------\n  ACT-40     Aroha Mason    Confirm tutor appointment  Morgan Lee  2026-10-14  4           \n  ACT-42     Jordan Rivers  Check weekly timetable     Morgan Lee  2026-10-19  -1          \n  ACT-41     Aroha Mason    Review catch-up plan       Morgan Lee  2026-10-21  -3"
+    },
+    {
+      "title": "The attention list",
+      "ask": "What needs the adviser team to act this week?",
+      "command": "npm run students -- attention",
+      "output": "issue                       source id  learner      owner        due on    \n  --------------------------  ---------  -----------  -----------  ----------\n  No assigned adviser         LRN-13     Mika Chen    Unassigned             \n  No recent contact           LRN-13     Mika Chen    Unassigned             \n  No recent contact           LRN-10     Aroha Mason  Morgan Lee   2026-09-23\n  No recent contact           LRN-12     Jordan Reed  Morgan Lee   2026-09-28\n  Action overdue              ACT-40     Aroha Mason  Morgan Lee   2026-10-14\n  Alert overdue               ALT-20     Aroha Mason  Morgan Lee   2026-10-15\n  Referral awaiting response  REF-50     Aroha Mason  Casey Ngata  2026-10-15\n  Plan review due             PLN-30     Aroha Mason  Morgan Lee   2026-10-16\n  Alert overdue               ALT-22     Mika Chen    Morgan Lee   2026-10-17\n  Referral awaiting response  REF-51     Mika Chen    Casey Ngata  2026-10-17"
+    }
+  ]
+}

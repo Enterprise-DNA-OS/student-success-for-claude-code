@@ -1,115 +1,119 @@
-<h1 align="center">Student Success for Claude Code</h1>
+# Student Success for Claude Code
 
-<p align="center">
-  <strong>The open-source student success desk that is just a database and Claude Code.</strong>
-</p>
+Keep adviser caseloads, support plans, referrals and follow-ups in a database your institution owns. Free under the MIT licence. Works with Claude Code, Codex, OpenCode or Cursor.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free. Install the demo and bring your reports across. | Your fields, programmes, support rules and documents. | Installed and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
+| [Start here](#quick-start) | [Get your version built](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=salesforce-education-cloud&utm_medium=readme) | [Talk to Sam](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=salesforce-education-cloud&utm_medium=readme) |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Salesforce Education Cloud data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=salesforce-education-cloud">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/salesforce-education-cloud?utm_source=github&utm_medium=readme&utm_campaign=salesforce-education-cloud">How it works</a></td>
-  </tr>
-</table>
+## The weekly job
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-salesforce-education-cloud">Instead of Salesforce Education Cloud</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+Review caseloads, triage recorded alerts, review support plans, follow up agreed actions and check unanswered referrals. Each job has its own command. Ask which overdue alerts belong to learners nobody has contacted recently, or which services still owe a response. The Monday review combines the caseload, exception list and referral queue.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
+Salesforce lists Education Cloud Sales & Service Core at US$87 per user/month, billed annually, for eligible nonprofit institutions. Twenty-five paid seats model US$26,100 a year before implementation. This is a list-price calculation, not a customer invoice. Eligibility, grants, discounts and contract terms change the actual bill. [Vendor pricing](https://www.salesforce.com/education/pricing/), checked 18 October 2026.
 
----
-
-## What is this
-
-Student Success for Claude Code does the job you pay Salesforce Education Cloud for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Salesforce Education Cloud dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Salesforce Education Cloud per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=salesforce-education-cloud).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
+This is the staff adviser desk, not all of Education Cloud. It records learning-support work. Admissions, recruitment, grades, clinical records, automated risk scoring, financial aid decisions, payments and emergency response are outside its scope. It makes no decision about a learner's eligibility or care.
 
 ## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
 
 ```bash
 git clone https://github.com/Enterprise-DNA-OS/student-success-for-claude-code.git
 cd student-success-for-claude-code
 npm install
+npm test
 npm run demo
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+Node 20.11 or later. The demo runs on fictional records in temporary storage and removes them afterwards. For a persistent demo, run `npm run migrate` then `npm run seed`. For real records, run migrate without seed, then import. Do not mix demo learners with a real portfolio.
 
-### Use it with your own Postgres or Supabase
+PGlite runs locally without a database installation. DATABASE_URL selects your shared Postgres database. Use one institution per private database and trusted operator connections. Do not expose this base to a public browser API. Review server roles, encryption, access, backups and retention before loading personal records. RLS blocks non-owner access by default; it is not an adviser-by-adviser permissions system.
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+Open the folder in your coding agent and ask `/weekly-review`.
 
-## The commands
+## Commands
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
-
-| Command | What it does |
+| Job | Command |
 |---|---|
-| `/...` | ... |
+| Review adviser capacity | `/advisers` |
+| Review the learner register | `/learners` |
+| Review adviser caseloads | `/caseload` |
+| Triage recorded learning alerts | `/alerts` |
+| Review support plans and their dates | `/plan-review` |
+| Review unfinished actions | `/follow-ups` |
+| Chase recorded service handovers | `/referral-chase` |
+| Review recorded interactions | `/interactions` |
+| Find overdue, quiet and unassigned work | `/attention` |
+| Review accuracy, retention and support ownership | `/compliance` |
+| Write the Monday adviser review | `/weekly-review` |
+| Answer ten cross-record questions | `/insights` |
+| Read one learner with linked history | `/learner` |
+| Review the latest hundred changes | `/history` |
+| Add a verified record | `/add` |
+| Record a verified outcome | `/complete` |
+| Record an external referral acceptance | `/accept-referral` |
+| Record a plan review and next review date | `/review-plan` |
+| Assign an adviser to a learner | `/assign` |
+| Record a completed accuracy review | `/review-accuracy` |
+| Record an adviser interaction | `/log` |
+| Draft the weekly adviser fact pack | `/draft-weekly-review` |
+| Draft a learner support plan fact pack | `/draft-support-plan` |
+| Draft a referral follow-up fact pack | `/draft-referral` |
+| Import Salesforce Details Only CSV reports | `/import` |
+| Export all records and audit history | `/export` |
+| Render read-only review pages | `/view` |
+| Render paperwork | `/documents` |
+| Change fields and rules | `/customise` |
+| Add a read-only view | `/new-view` |
 
-## Instead of salesforce-education-cloud
+Every read supports `--json`. Names match without case sensitivity. Ambiguous names list candidates and exit with an error. Mutations record the operator label and before/after values. See [CLI formats](docs/cli.md).
 
-<!-- TODO(author): how to bring data across from Salesforce Education Cloud; link docs/replace-salesforce-education-cloud.md -->
+## Ten questions answered from your records
 
-## Architecture
+The tested `/insights` command answers all ten below. These join several kinds of records. We do not claim Salesforce cannot be configured to answer them.
 
-```
-student-success-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
-```
+1. Which learners have overdue alerts and no recent contact?
+2. Which active learners have an alert but no active support plan?
+3. Which advisers are over their agreed caseload capacity?
+4. Which overdue actions belong to plans whose review is also overdue?
+5. Which learners have both pending referrals and high-priority alerts?
+6. Which active learners have no adviser?
+7. Which cohorts have overdue alerts?
+8. Which inactive learners are due for a retention review?
+9. Which learners have open alerts and stale accuracy reviews?
+10. Which services have unanswered referrals past their response date?
 
-## Built for coding agents
+## Your first hour: ten things to ask for
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+1. Show me the adviser caseloads and capacity limits.
+2. Find overdue alerts for learners we have not contacted recently.
+3. Show me active learners without a support plan.
+4. Which agreed actions are overdue?
+5. Which services still owe a referral response?
+6. Draft the weekly adviser review, using only recorded facts.
+7. Put our institution name and logo on the support-plan paperwork.
+8. Import our report files as a test run and show ignored columns.
+9. Add our campus field and include it in the caseload review.
+10. Change our quiet-contact reminder from fourteen days to our agreed review interval.
 
-## Contributing
+## Paperwork and views
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+`npm run docs` creates branded support-plan reviews, referral briefs and adviser handovers under docs-out/. `npm run view` creates three read-only review pages under views/. Change the name, logo and colours in brand.json. Print the HTML to PDF if needed. Draft commands write JSON fact packs under drafts/; the matching slash commands turn those verified facts into editable prose. Nothing sends.
 
-## Want it installed and run for you?
+## Bring your history
 
-Enterprise DNA installs Student Success for Claude Code for your business, migrates your Salesforce Education Cloud data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+Export Salesforce Details Only CSV reports and map your report labels to the documented fields. One command imports all supported files in dependency order. The importer supports source IDs, linked records, dry runs and atomic rollback. It leaves unchanged reruns alone and stops on conflicting values. [Switch guide](docs/replace-salesforce-education-cloud.md).
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=salesforce-education-cloud)
-- Read more: [enterprisedna.co/omni/instead-of/salesforce-education-cloud](https://enterprisedna.co/omni/instead-of/salesforce-education-cloud?utm_source=github&utm_medium=readme&utm_campaign=salesforce-education-cloud)
+This is not a universal Salesforce backup restore. Export attachments, access settings and other unsupported records separately. Reconcile counts and sample learners before changing your working system.
 
-## License
+## Record checks
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+`/compliance` flags stale accuracy checks, retention reviews and learners without an assigned adviser. [Rules and sources](docs/compliance.md) distinguish legal principles from internal reminders. No findings is not a compliance certificate. Human staff retain responsibility for support, disclosure and urgent situations.
+
+## Verification
+
+`npm test` creates its own temporary database and checks every CLI path, all seven import types, transaction rollback, workflow constraints, private access, audit history, ten questions, drafts and rendered paperwork. CI covers Linux and Windows on Node 20 and 22. A configured CI workflow is separate from an observed CI result.
+
+## Licence
+
+MIT. Copyright 2026 Enterprise DNA. Salesforce is a trademark of Salesforce, Inc. This independent project is not affiliated with or endorsed by Salesforce.

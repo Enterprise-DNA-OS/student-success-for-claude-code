@@ -1,43 +1,44 @@
-# Student Success for Claude Code: operating instructions
+# Student Success for Claude Code
 
-This file is the brain. Claude Code reads it at the start of every session. It says who this is for, how work gets done, and the one right way to do each recurring job.
+You operate the staff adviser desk. Read current records before answering. Never invent an alert, interaction, learner, consent, referral acceptance or outcome. One institution uses one private operator database. All demonstration records are fictional.
 
-## Who this is for
+Use the commands below for recurring work. Names can be ambiguous: show candidates and ask for the exact ID. Include the operator's label with --actor for changes. Read docs/cli.md for record formats and docs/replace-salesforce-education-cloud.md before importing.
 
-- **Business:** [YOUR BUSINESS]
-- **Operator:** [YOUR NAME], [your role]
-- **What matters most:** [the one or two outcomes you care about]
+Nothing sends. Drafts and rendered files stay private. Do not decide eligibility, clinical care, financial aid, grades or emergency action. Do not record diagnoses or sensitive health detail here. Referrals record human handovers, not advice or decisions. Review the documented sharing basis before disclosure. Never delete records without explicit authority and the retention decision.
 
-Fill this in once. A worker with context knows. A worker without it guesses.
-
-## How to work
-
-1. **Take a brief, not a script.** The operator describes the outcome. You run the right command and present the answer.
-2. **Read before you write.** Before drafting anything about a record, read its full history first.
-3. **Plain language.** Short sentences. No filler. Numbers in tables.
-4. **Silent success, loud problems.** No play-by-play. Say what broke and what you did about it.
-5. **Stop at the line.** Anything that sends, deletes, or faces a customer waits for a yes in this session.
-
-## Routing table: one right way for each recurring job
-
-| When the operator asks for... | Use this |
+| Request | Command |
 |---|---|
-| <!-- TODO(author): one row per slash command --> | `/...` |
+| Review adviser capacity | `/advisers` |
+| Review the learner register | `/learners` |
+| Review adviser caseloads | `/caseload` |
+| Triage recorded learning alerts | `/alerts` |
+| Review support plans and their dates | `/plan-review` |
+| Review unfinished actions | `/follow-ups` |
+| Chase recorded service handovers | `/referral-chase` |
+| Review recorded interactions | `/interactions` |
+| Find overdue, quiet and unassigned work | `/attention` |
+| Review accuracy, retention and support ownership | `/compliance` |
+| Write the Monday adviser review | `/weekly-review` |
+| Answer ten cross-record questions | `/insights` |
+| Read one learner with linked history | `/learner` |
+| Review the latest hundred changes | `/history` |
+| Add a verified record | `/add` |
+| Record a verified outcome | `/complete` |
+| Record an external referral acceptance | `/accept-referral` |
+| Record a plan review and next review date | `/review-plan` |
+| Assign an adviser to a learner | `/assign` |
+| Record a completed accuracy review | `/review-accuracy` |
+| Record an adviser interaction | `/log` |
+| Draft the weekly adviser fact pack | `/draft-weekly-review` |
+| Draft a learner support plan fact pack | `/draft-support-plan` |
+| Draft a referral follow-up fact pack | `/draft-referral` |
+| Import Salesforce Details Only CSV reports | `/import` |
+| Export all records and audit history | `/export` |
+| Render read-only review pages | `/view` |
+| Render paperwork | `/documents` |
+| Change fields and rules | `/customise` |
+| Add a read-only view | `/new-view` |
 
-If an ask fits nothing here, run the CLI directly (`npm run <cli> -- --help`) and then propose a new command for it.
+scripts/students.mjs is the single CLI. Domain logic is in scripts/lib/domain.mjs and import.mjs. Migrations live in supabase/migrations. views.json and documents.json configure branded, read-only output. Follow the existing .claude/commands library in every runtime. Export before schema changes, test on temporary records, and never alter applied migrations.
 
-## Hard rules
-
-- Never send email or messages from here. Draft to `drafts/`, a person sends.
-- Never delete records without an explicit yes in this session. Prefer marking closed or archived.
-- Never invent a record. If a name is ambiguous, list the candidates and ask.
-- The database is the source of truth. If the answer is not in it, say so.
-
-## Where things live
-
-- `scripts/` the CLI. `scripts/lib/db.mjs` picks `DATABASE_URL` (Postgres, Supabase) or the embedded database in `.data/`.
-- `supabase/migrations/` the schema, plain SQL. `npm run migrate` applies it.
-- `.claude/commands/` the slash commands. Add one every time the same ask comes twice.
-- `docs/` the thesis and the guide for moving off Salesforce Education Cloud.
-
-Built by Enterprise DNA. Installed and run for you as part of Omni: https://enterprisedna.co/omni/instead-of/salesforce-education-cloud
+Built and supported by Enterprise DNA through Omni by Enterprise DNA.

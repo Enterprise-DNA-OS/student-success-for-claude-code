@@ -1,11 +1,51 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "support-plan",
+    "title": "Support plan review",
+    "for_each": "select id,name from learners",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Learner",
+        "sql": "select source_id,name,programme,cohort,status from learners where id=$1"
+      },
+      {
+        "title": "Goals and reviews",
+        "sql": "select name,goal,start_on,review_on,owner,status,outcome from plans where learner_id=$1"
+      },
+      {
+        "title": "Agreed actions",
+        "sql": "select a.name,a.due_on,a.owner,a.status,a.outcome from actions a join plans p on p.id=a.plan_id where p.learner_id=$1 order by a.due_on"
+      }
+    ]
+  },
+  {
+    "name": "referral-brief",
+    "title": "Referral follow-up brief",
+    "for_each": "select id,name from referrals",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Private operator review",
+        "note": "Check the sharing basis and accuracy before sharing. This document sends nothing.",
+        "sql": "select r.source_id,l.name as learner,r.service,r.requested_on,r.due_on,r.owner,r.sharing_basis,r.status,r.outcome from referrals r join learners l on l.id=r.learner_id where r.id=$1"
+      }
+    ]
+  },
+  {
+    "name": "adviser-handover",
+    "title": "Adviser handover",
+    "for_each": "select id,name from advisers",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Learner caseload",
+        "sql": "select v.source_id,v.name,v.programme,v.last_contact,v.open_alerts from v_caseload v join learners l on l.id=v.id where l.adviser_id=$1"
+      },
+      {
+        "title": "Unfinished actions",
+        "sql": "select f.learner,f.action,f.due_on,f.owner from v_follow_ups f join actions a on a.id=f.id join plans p on p.id=a.plan_id join learners l on l.id=p.learner_id where l.adviser_id=$1 order by f.due_on"
+      }
     ]
   }
 ]

@@ -1,0 +1,188 @@
+{
+  "advisers": {
+    "fields": [
+      "source_id",
+      "name",
+      "capacity"
+    ],
+    "dates": [],
+    "required": [
+      "source_id",
+      "name"
+    ],
+    "refs": {}
+  },
+  "learners": {
+    "fields": [
+      "source_id",
+      "name",
+      "programme",
+      "cohort",
+      "adviser_id",
+      "status",
+      "accuracy_checked_on",
+      "retention_review_on"
+    ],
+    "dates": [
+      "accuracy_checked_on",
+      "retention_review_on"
+    ],
+    "required": [
+      "source_id",
+      "name",
+      "programme",
+      "cohort",
+      "retention_review_on"
+    ],
+    "refs": {
+      "adviser_id": "advisers"
+    }
+  },
+  "alerts": {
+    "fields": [
+      "source_id",
+      "learner_id",
+      "name",
+      "priority",
+      "opened_on",
+      "due_on",
+      "owner",
+      "status",
+      "outcome",
+      "closed_on"
+    ],
+    "dates": [
+      "opened_on",
+      "due_on",
+      "closed_on"
+    ],
+    "required": [
+      "source_id",
+      "learner_id",
+      "name",
+      "priority",
+      "opened_on",
+      "due_on",
+      "owner"
+    ],
+    "refs": {
+      "learner_id": "learners"
+    }
+  },
+  "plans": {
+    "fields": [
+      "source_id",
+      "learner_id",
+      "name",
+      "goal",
+      "start_on",
+      "review_on",
+      "owner",
+      "status",
+      "outcome",
+      "closed_on"
+    ],
+    "dates": [
+      "start_on",
+      "review_on",
+      "closed_on"
+    ],
+    "required": [
+      "source_id",
+      "learner_id",
+      "name",
+      "goal",
+      "start_on",
+      "review_on",
+      "owner"
+    ],
+    "refs": {
+      "learner_id": "learners"
+    }
+  },
+  "actions": {
+    "fields": [
+      "source_id",
+      "plan_id",
+      "name",
+      "due_on",
+      "owner",
+      "status",
+      "outcome",
+      "closed_on"
+    ],
+    "dates": [
+      "due_on",
+      "closed_on"
+    ],
+    "required": [
+      "source_id",
+      "plan_id",
+      "name",
+      "due_on",
+      "owner"
+    ],
+    "refs": {
+      "plan_id": "plans"
+    }
+  },
+  "referrals": {
+    "fields": [
+      "source_id",
+      "learner_id",
+      "name",
+      "service",
+      "requested_on",
+      "due_on",
+      "owner",
+      "sharing_basis",
+      "status",
+      "outcome",
+      "closed_on"
+    ],
+    "dates": [
+      "requested_on",
+      "due_on",
+      "closed_on"
+    ],
+    "required": [
+      "source_id",
+      "learner_id",
+      "name",
+      "service",
+      "requested_on",
+      "due_on",
+      "owner",
+      "sharing_basis"
+    ],
+    "refs": {
+      "learner_id": "learners"
+    }
+  },
+  "interactions": {
+    "fields": [
+      "source_id",
+      "learner_id",
+      "name",
+      "occurred_on",
+      "kind",
+      "summary",
+      "owner"
+    ],
+    "dates": [
+      "occurred_on"
+    ],
+    "required": [
+      "source_id",
+      "learner_id",
+      "name",
+      "occurred_on",
+      "kind",
+      "summary",
+      "owner"
+    ],
+    "refs": {
+      "learner_id": "learners"
+    }
+  }
+}

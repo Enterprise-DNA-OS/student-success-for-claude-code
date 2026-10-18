@@ -1,0 +1,12 @@
+{
+  "learners": {
+    "Contact ID": "source_id",
+    "Full Name": "name",
+    "Programme Name": "programme",
+    "Intake": "cohort",
+    "Adviser ID": "adviser_id",
+    "Enrolment Status": "status",
+    "Accuracy Checked": "accuracy_checked_on",
+    "Retention Review": "retention_review_on"
+  }
+}

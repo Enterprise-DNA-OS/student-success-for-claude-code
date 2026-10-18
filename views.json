@@ -1,13 +1,36 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Student Success for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Adviser week",
+    "subtitle": "Fictional demo records unless replaced with your own",
     "sections": [
       {
         "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "sql": "select * from v_attention order by due_on nulls first,source_id"
+      }
+    ]
+  },
+  {
+    "name": "caseload",
+    "title": "Adviser caseload",
+    "sections": [
+      {
+        "title": "Learners",
+        "sql": "select source_id,name,programme,adviser,last_contact,open_alerts,active_plans,pending_referrals from v_caseload where status='active' order by adviser,name"
+      }
+    ]
+  },
+  {
+    "name": "follow-ups",
+    "title": "Follow-up desk",
+    "sections": [
+      {
+        "title": "Open actions",
+        "sql": "select source_id,learner,action,owner,due_on,days_overdue from v_follow_ups order by due_on"
+      },
+      {
+        "title": "Record reviews",
+        "sql": "select * from v_compliance order by rule,source_id"
       }
     ]
   }
